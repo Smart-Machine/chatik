@@ -1,29 +1,34 @@
 #! /usr/bin/python
 
-import socket, threading
+import socket, threading, rsa, random, textwrap 
+from constants import *
 
-HOST, PORT = 'localhost', 65432
-BUFSIZE = 1024
 
 def handle_messages(connection: socket.socket) -> None:
     
     while True:
 
         try:
-            message = connection.recv(BUFSIZE)
+            message = connection.recv(BUFSIZE).decode()
 
-            if message.decode() == 'QUIT':
+            wrapper = textwrap.TextWrapper(width=50)
+            word_list = wrapper.wrap(text=message)
+
+            if message == 'QUIT':
                 break
             elif message:
-                print(message.decode())
+                #print(message)
+                for word in word_list:
+                    print(word)
             else:
                 connection.close()
                 break
         
         except Exception as e:
-            print(f'Error when handling messages from server: {e}')
+            print(ERROR + f'Error when handling messages from server: {e}')
             connection.close()
             break
+
 
 def start_chat() -> None:
 
@@ -33,25 +38,32 @@ def start_chat() -> None:
         client.connect((HOST, PORT))
         threading.Thread(target=handle_messages, args=(client,)).start()
 
+        while True:
+            nickname = input(INFO + 'Name : ')
+            if nickname:
+                client.send(('Name : ' + nickname).encode())
+                break
+            else :
+                print(ERROR + 'Enter your name.')
 
-        nickname = input('Name : ')
-        client.send(('Name : ' + nickname).encode())
-
-        print(f'Joined the chat.')
+        print(INFO + f'Joined the chat.')
 
         while True:
             message = input()
+
             client.send(message.encode())
 
             if message == 'quit()' or message == 'exit()':
                 break
 
         client.close()
-        print(f'Quited the chat.')
+        print(INFO + f'Quited the chat.')
     
     except Exception as e:
-        print(f'Error has occured when connecting to the server: {e}')
+        print(ERROR + f'Error has occured when connecting to the server: {e}')
         client.close()
 
+
 if __name__ == '__main__':
+
     start_chat()

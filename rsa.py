@@ -22,7 +22,7 @@ def generate_encrypted_key(T: int) -> int:
         if gcd(T, i) == 1: 
             return i
 
-def generate_decryption_key(e, T, p, N: int) -> int:
+def generate_decryption_key(e, T, N: int) -> int:
     for i in range(N):
         if ((e*i) % T) == 1:
             return i
@@ -48,23 +48,23 @@ def decrypt_message(en_msg, d, N: int):
 p = random.choice(generate_primes(1000))
 q = random.choice(generate_primes(1000))
 
-print (p, q)
+# print (p, q)
 
-N = p*q
-T = (p-1) * (q-1)
+# N = p*q
+# T = (p-1) * (q-1)
 
-e = generate_encrypted_key(T)
-d = generate_decryption_key(e, T, p, N)
-
-
-msg = "Melissa este in Germania!"
+# e = generate_encrypted_key(T)
+# d = generate_decryption_key(e, T, N)
 
 
-print (msg)
-enc = encrypt_message(msg, e, N)
+# msg = "Melissa este in Germania!"
 
-print("Your chipertext is:")
-print(''.join(map(lambda x : str(x), enc)))
 
-print (enc)
-print(decrypt_message(enc, d, N))
+# print (msg)
+# enc = encrypt_message(msg, e, N)
+
+# print("Your chipertext is:")
+# print(''.join(map(lambda x : str(x), enc)))
+
+# print (enc)
+# print(decrypt_message(enc, d, N))
