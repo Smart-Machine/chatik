@@ -1,4 +1,4 @@
-TODO:
+#TODO:
 
 1. Read more about End-to-end encryption
 2. Read more about Diffie–Hellman key exchange
