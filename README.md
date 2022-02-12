@@ -1,3 +1,8 @@
+#How to use:
+* For running the server: `python app/server.py`
+* For running the client: `python app/client.py`
+
+
 #TODO:
 
 1. Read more about End-to-end encryption
