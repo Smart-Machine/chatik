@@ -1,3 +1,6 @@
+![Chat showcase](./img.jpg)
+
+
 #How to use:
 * Enter the virtual environment, by running:
 	* bash/zsh : `$ source venv/bin/activate`
